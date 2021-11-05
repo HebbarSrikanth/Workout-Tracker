@@ -57,7 +57,7 @@ export default {
           email:email.value,
           password:password.value
         })
-        console.log(response)
+        console.log('Successfully logged in')
         if(response.error) throw response.error
         router.push('/')
       } catch (error) {

@@ -7,20 +7,24 @@
 
 <script>
 import Header from './components/Navigation.vue'
+// import {ref} from 'vue'
+import store from '@/store'
+
+import {supabase} from './supabase'
 
 export default {
   components:{
     Header
   },
   setup() {
-    // Create data / vars
-
-    // Check to see if user is already logged in
-
-    // If user does not exist, need to make app ready
+    //Get the user details if any, if logged in then triggers onAuthStateChange is not then not triggered
+     supabase.auth.user()
 
     // Runs when there is a auth state change
-    // if user is logged in, this will fire
+    // if user is login/logout, this will fire
+    supabase.auth.onAuthStateChange((_,session)=>{
+      store.methods.setUser(session)
+    })
 
     return {};
   },
