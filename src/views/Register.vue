@@ -43,6 +43,7 @@
           Register
         </button>
       </div>
+       <p class="text-center mt-3">Already an user ? <router-link to="/login" class="text-at-light-green">LogIn</router-link></p>
     </form>
   </div>
 </template>
@@ -69,11 +70,12 @@ export default {
         return;
       }
       try {
-        const { error } = await supabase.auth.signUp({
+        const response = await supabase.auth.signUp({
           email: email.value,
           password: password.value,
         });
-        if (error) throw error;
+        console.log(response)
+        if (response.error) throw response.error;
         router.push("/");
       } catch (error) {
         console.log(error);

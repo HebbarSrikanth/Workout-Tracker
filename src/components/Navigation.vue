@@ -10,9 +10,9 @@
         <div>Workout</div>
       </div>
       <ul class="flex justify-end flex-1 gap-4">
-        <a href="#">Create</a>
-        <a href="#">View</a>
-        <a href="#">Login</a>
+        <router-link to="/create">Create</router-link>
+        <router-link to="/view">View</router-link>
+        <router-link to="/login">Login</router-link>
         <a href="#">Logout</a>
       </ul>
     </nav>
