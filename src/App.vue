@@ -7,7 +7,6 @@
 
 <script>
 import Header from './components/Navigation.vue'
-// import {ref} from 'vue'
 import store from '@/store'
 
 import {supabase} from './supabase'
