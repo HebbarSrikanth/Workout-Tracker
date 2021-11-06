@@ -1,19 +1,68 @@
 <template>
-  <div></div>
+  <div v-if="loadedData" class="px-4 py-10 container">
+    <router-link
+      class="grid grid-col-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+      v-for="workout in workouts"
+      :key="workout.id"
+      :to="/view/+workout.id"
+    >
+      <!-- Display Each exercise -->
+      <div
+        class="
+          bg-light-grey
+          rounded
+          px-4
+          py-6
+          gap-y-4
+          flex flex-col
+          items-center
+          align-center
+          cursor-pointer
+          duration-500 transform  hover:-translate-1 hover:scale-110
+        "
+      >
+        <img
+          :src="[
+            workout.workoutType === 'cardio'
+              ? require(`@/assets/images/running-light-green.png`)
+              : require(`@/assets/images/dumbbell-light-green.png`),
+          ]"
+          class="w-auto h-24"
+          alt="cardio"
+        />
+        <h2 class="text-2xl text-at-light-green">{{ workout.workoutName }}</h2>
+      </div>
+    </router-link>
+  </div>
 </template>
 
 <script>
+import { onMounted, ref } from "vue";
+import { supabase } from "@/supabase";
+
 export default {
   name: "Home",
   components: {},
   setup() {
     // Create data / vars
+    const workouts = ref([]);
+    const loadedData = ref(null);
 
     // Get data
+    try {
+      onMounted(async () => {
+        const { data, error } = await supabase.from("workouts").select("*");
+        if (error) throw error;
+        workouts.value = data;
+        loadedData.value = true;
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
 
     // Run data function
 
-    return {};
+    return { workouts, loadedData };
   },
 };
 </script>

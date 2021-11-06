@@ -22,7 +22,7 @@ const routes = [
     component: Login,
   },
   {
-    path: "/view",
+    path: "/view/:workoutId?",
     name: "View",
     component: ViewWorkot,
   },
