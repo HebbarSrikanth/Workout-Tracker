@@ -15,8 +15,8 @@
         <div>Workout</div>
       </router-link>
       <ul v-if="user" class="flex justify-end flex-1 gap-4">
+        <router-link to="/">Home</router-link>
         <router-link to="/create">Create</router-link>
-        <router-link to="/view">View</router-link>
         <a @click="logout" class="cursor-pointer">Logout</a>
       </ul>
       <ul v-else class="flex justify-end flex-1 gap-4">
@@ -31,15 +31,19 @@
 import { supabase } from "@/supabase";
 import store from "@/store";
 import { computed } from "vue";
+import {useRouter} from 'vue-router'
 
 export default {
   setup() {
     // Get user from store
+    const router=useRouter()
     const user = computed(() => store.state.user);
     // Check if the user is logged in
     // Logout function
     const logout = async () => {
       await supabase.auth.signOut();
+      router.push('/')
+
     };
 
     return { logout, user };

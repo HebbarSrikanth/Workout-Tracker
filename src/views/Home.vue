@@ -1,44 +1,66 @@
 <template>
-  <div v-if="loadedData" class="px-4 py-10 flex flex-col container">
-    <router-link
-      class="grid grid-col-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
-      v-for="workout in workouts"
-      :key="workout.id"
-      :to="/view/ + workout.id"
+  <div v-if="loadedData" class="px-4 py-10 container">
+    <div
+      class="
+        grid grid-cols-1
+        sm:grid-cols-2
+        md:grid-cols-3
+        lg:grid-cols-4
+        gap-6
+      "
     >
-      <!-- Display Each exercise -->
-      <div
+      <router-link
         class="
-          bg-light-grey
-          rounded
-          px-4
-          py-6
-          gap-y-4
           flex flex-col
           items-center
-          align-center
+          bg-light-grey
+          p-8
+          shadow-md
           cursor-pointer
-          duration-500
-          transform
-          hover:-translate-1 hover:scale-110
         "
+        v-for="workout in workouts"
+        :key="workout.id"
+        :to="/view/ + workout.id"
       >
-        <img
-          :src="[
-            workout.workoutType === 'cardio'
-              ? require(`@/assets/images/running-light-green.png`)
-              : require(`@/assets/images/dumbbell-light-green.png`),
-          ]"
-          class="w-auto h-24"
-          alt="cardio"
-        />
-        <h2 class="text-2xl text-at-light-green">{{ workout.workoutName }}</h2>
-      </div>
-    </router-link>
-  </div>
-  <div v-else-if="errorMessage" class="max-w-screen-md rounded mx-auto bg-red-200 p-2 m-2">
-      {{ errorMessage }}
+        <!-- Display Each exercise -->
+        <div
+          class="
+            bg-light-grey
+            rounded
+            px-4
+            py-6
+            gap-y-4
+            flex flex-col
+            items-center
+            align-center
+            cursor-pointer
+            duration-500
+            transform
+            hover:-translate-1 hover:scale-110
+          "
+        >
+          <img
+            :src="[
+              workout.workoutType === 'cardio'
+                ? require(`@/assets/images/running-light-green.png`)
+                : require(`@/assets/images/dumbbell-light-green.png`),
+            ]"
+            class="w-auto h-24"
+            alt="cardio"
+          />
+          <h2 class="text-2xl text-at-light-green">
+            {{ workout.workoutName }}
+          </h2>
+        </div>
+      </router-link>
     </div>
+  </div>
+  <div
+    v-else-if="errorMessage"
+    class="max-w-screen-md rounded mx-auto bg-red-200 p-2 m-2"
+  >
+    {{ errorMessage }}
+  </div>
 </template>
 
 <script>
@@ -62,18 +84,18 @@ export default {
         workouts.value = data;
         loadedData.value = true;
       } catch (error) {
-        console.log("Error while fetching data ",error.message);
-        setError(`Error : ${error.message}`)
+        console.log("Error while fetching data ", error.message);
+        setError(`Error : ${error.message}`);
       }
     });
 
-    const setError=(msg)=>{
-      console.log('called')
-      errorMessage.value=msg;
-      setTimeout(()=>{
-        errorMessage.value=null
-      },5000)
-    }
+    const setError = (msg) => {
+      console.log("called");
+      errorMessage.value = msg;
+      setTimeout(() => {
+        errorMessage.value = null;
+      }, 5000);
+    };
 
     // Run data function
 

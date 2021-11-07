@@ -229,7 +229,6 @@ export default {
           exercise: "",
           sets: "",
           reps: "",
-          duration: "",
         };
         exercies.value.push(addStrength);
       } else {
